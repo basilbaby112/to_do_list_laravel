@@ -17,19 +17,33 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{'/'}}">Home</a>
               </li>
             </ul>
+            @auth
+            <div class="alert alert-primary" role="alert">
+              <span class="font-bold uppercase">
+                Welcome {{auth()->user()->name}}
+              </span>
+            </div>
+              <form class="inline" method="POST" action="/logout">
+                @csrf
+                <button type="submit" class="btn btn-outline-success" type="submit">Logout</button>
+              </form>
+              @else
+              <a href="/login"><button class="btn btn-outline-success" type="submit">Login</button></a>
+              <a href="/register"><button class="btn btn-outline-success" type="submit">Register</button></a>
             
-              
-              <button class="btn btn-outline-success" type="submit">Login</button>
-              <button class="btn btn-outline-success" type="submit">Register</button>
-            
+            @endauth
           </div>
         </div>
       </nav>
 {{-- navbar --}}
+
     <div class="container">
+      <p>
+        {{session('message')}}
+      </p>
     @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
